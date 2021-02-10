@@ -9,6 +9,7 @@
         v-for="(friend, index) in friends"
         :key="friend.id"
         :id="index"
+        :stringNew="string"
       ></friend-contact>
     </ul>
   </section>
@@ -23,6 +24,7 @@ export default {
   },
   data() {
     return {
+      string: 'some string',
       friends: [
         {
           id: "manuel",
@@ -43,14 +45,17 @@ export default {
   },
   provide() {
     return {
+      string: this.string,
       friends: this.friends,
       toggleValid: this.toggleValid,
     };
   },
   methods: {
     toggleValid(id) {
+      this.string = "super new string"
       this.friends[id].valid = !this.friends[id].valid;
       // this.friends = this.friends.map((el,i)=> i === id ? {...el, valid: !el.valid} : el)
+      console.log(this.string)
    
     },
   },
