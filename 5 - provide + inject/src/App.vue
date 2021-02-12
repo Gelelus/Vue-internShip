@@ -4,37 +4,41 @@
       <h1>My Friends</h1>
     </header>
     <ul>
-      <!-- здесь новый компонет для создания контакта -->
+      <create-contact
+        @add-contact="addContact"
+      /> 
       <friend-contact
         v-for="(friend, index) in friends"
         :key="friend.id"
         :id="index"
-        :stringNew="string"
-      ></friend-contact>
+        @toggle-valid="toggleValid"
+        @delete-contact="deleteContact"
+      />
     </ul>
   </section>
 </template>
 
 <script>
 import FriendContact from "./components/FriendContact.vue";
+import CreateContact from "./components/CreateContact.vue";
 
 export default {
   components: {
     FriendContact,
+    CreateContact,
   },
   data() {
     return {
-      string: 'some string',
       friends: [
         {
-          id: "manuel",
+          idUser:"",
           name: "Manuel Lorenz",
           phone: "0123 45678 90",
           email: "manuel@localhost.com",
           valid: true,
         },
         {
-          id: "julie",
+          idUser: "",
           name: "Julie Jones",
           phone: "0987 654421 21",
           email: "julie@localhost.com",
@@ -43,21 +47,27 @@ export default {
       ],
     };
   },
+
   provide() {
     return {
-      string: this.string,
       friends: this.friends,
       toggleValid: this.toggleValid,
-    };
+      addContact: this.addContact,
+      deleteContact: this.deleteContact
+    }
   },
   methods: {
     toggleValid(id) {
-      this.string = "super new string"
-      this.friends[id].valid = !this.friends[id].valid;
-      // this.friends = this.friends.map((el,i)=> i === id ? {...el, valid: !el.valid} : el)
-      console.log(this.string)
-   
+      this.friends[id].valid = !this.friends[id].valid 
     },
+
+    addContact(nameForm, phoneForm, emailForm){
+      this.friends.push({name: nameForm, phone: phoneForm, email: emailForm})
+    },
+
+    deleteContact(id) {
+      this.friends.splice([id], 1)
+    }
   },
 };
 </script>

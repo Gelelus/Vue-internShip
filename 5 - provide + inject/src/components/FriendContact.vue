@@ -1,15 +1,8 @@
 <template>
   <li>
     <h2>
-      <div>{{ string }}</div>
-      <div>{{ stringNew }}</div>
-      <span
-        >{{ friends[id].name }} ({{
-          friends[id].valid ? "valid" : "invalid"
-        }})</span
-      >
-      <button class="delete">X</button>
-      <!-- при нажатии на данную кномпу должно происходить удаление контакта -->
+      <span>{{ friends[id].name }} ({{ friends[id].valid ? "valid" : "invalid" }})</span>
+      <button class="delete" @click="deleteContact(id)">X</button>
     </h2>
     <button @click="toggleDetails">
       {{ detailsAreVisible ? "Hide" : "Show" }} Details
@@ -32,9 +25,9 @@
 
 <script>
 export default {
-  props: ["id","stringNew"],
-  inject: ["friends", "toggleValid", "string"],
-  name: "contact", // необезательное свойство
+  props: ["id"],
+  inject: ["friends", "toggleValid", "deleteContact"],
+  name: "contact", // необезательное свойство 
   data() {
     return {
       detailsAreVisible: false,
@@ -52,7 +45,7 @@ export default {
 .delete {
   /* если что так делать нельзя */
   color: red !important;
-  background: transparent !important;
+  background:transparent !important;
   border: none !important;
   box-shadow: none !important;
   float: right;

@@ -1,30 +1,41 @@
 <template>
-  <form>
+  <form @submit.prevent="formHandler">
     <div>
       <label>Name</label>
-      <input type="text" />
+      <input type="text" v-model="nameForm"/>
     </div>
     <div>
       <label>Phone</label>
-      <input type="tel" />
+      <input type="text" v-model="phoneForm"/>
     </div>
     <div>
       <label>Email</label>
-      <input type="email" />
+      <input type="text" v-model="emailForm"/>
     </div>
-    <button>
-      add contact
-    </button>
+    <input type="submit" @click="addContact(nameForm, phoneForm, emailForm)">
+     
   </form>
 </template>
 
 <script>
 export default {
   name: "new-contact", // необезательное свойство 
+  inject: ["addContact"],
   data() {
-    return {};
+    return {
+      nameForm: '',
+      phoneForm: '',
+      emailForm: '',
+    };
   },
-  methods: {},
+
+  methods: {
+    // addContact(event){
+    //   event.preventDefault();
+
+    //   // this.$emit("add-contact", this.nameForm, this.phoneForm, this.emailForm)
+    // }
+  },
 };
 </script>
 
