@@ -17,32 +17,48 @@ import UserItem from "../users/UserItem.vue";
 
 export default {
   props: ["teamId"],
-  inject: ["users", "teams"],
   components: {
     UserItem
   },
+  inject: ["users", "teams"],
   data() {
     return {
-      teamName: "",
-      members: []
+      members: [],
+      teamName: ""
+      // teamName: "Test",
+      // members: [
+      //   { id: "u1", fullName: "Max Schwarz", role: "Engineer" },
+      //   { id: "u2", fullName: "Max Schwarz", role: "Engineer" }
+      // ]
     };
   },
   methods: {
     setTeam(teamId) {
-      console.log(teamId)
       const team = this.teams.find(el => el.id === teamId);
-      this.teamName = team.team;
+      this.teamName = team.name;
       this.members = team.members.map(userId =>
         this.users.find(user => user.id === userId)
       );
     }
   },
   created() {
-    this.setTeam(this.teamId)
+    this.setTeam(this.teamId);
   },
-  watch:{
-    teamId(id){
-      this.setTeam(id)
+  beforeRouteUpdate(to, _from, next) {
+    console.log("updated route patrams on TEAM MEmbers component page");
+    next();
+  },
+  beforeRouteEnter(_to, _from, next) {
+    console.log("enter to TEAM MEmbers component page");
+    next();
+  },
+  beforeRouteLeave(_to, _from, next) {
+    console.log("leave from TEAM MEmbers component page");
+    next();
+  },
+  watch: {
+    teamId(teamId) {
+      this.setTeam(teamId);
     }
   }
 };

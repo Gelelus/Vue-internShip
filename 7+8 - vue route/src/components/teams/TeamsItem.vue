@@ -2,18 +2,21 @@
   <li>
     <h3>{{ name }}</h3>
     <div class="team-members">{{ memberCount }} Members</div>
-    <!-- поменять -->
-    <a @click="setTeamLink">View Members</a>
+    <router-link :to="teamLink">View Members</router-link>
   </li>
 </template>
 
 <script>
 export default {
-  props: ["name", "memberCount", "id"],
-  methods:{
-    setTeamLink(){
-      console.log("teams/" + this.id)
-      this.$router.push("/teams/" + this.id)
+  props: ["id", "name", "memberCount"],
+  computed: {
+    teamLink() {
+      // return `/teams/${this.id}`;
+      return {
+        name: "team-members",
+        params: { teamId: this.id },
+        query: { sort: "random" }
+      };
     }
   }
 };
