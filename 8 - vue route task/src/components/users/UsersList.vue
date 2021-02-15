@@ -1,5 +1,4 @@
 <template>
-  <button @click="confirm">confirm</button>
   <ul>
     <user-item
       v-for="user in users"
@@ -16,16 +15,6 @@ import UserItem from "./UserItem.vue";
 export default {
   components: {
     UserItem
-  },
-  methods: {
-    confirm() {
-      this.$router.push("/teams");
-    }
-  },
-  beforeRouteEnter(to, from, next) {
-    console.log("user list component in route");
-    console.log(to, from);
-    next();
   },
   inject: ["users"]
 };
