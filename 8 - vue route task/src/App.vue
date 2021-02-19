@@ -40,6 +40,10 @@ export default {
       this.activePage = page;
     },
   },
+  created(){
+    console.log(this.$route, "route")
+    console.log(this.$router, "router")
+  }
 };
 </script>
 
