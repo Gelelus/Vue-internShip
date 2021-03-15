@@ -7,7 +7,7 @@ export default {
     },
     mutations: {
         increment(state, number) {
-
+            console.log(this.increment)
             // setTimeout(function(){
             //     state.counter = state.counter + (number || 1)
             // }, 2000)
